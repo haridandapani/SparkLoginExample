@@ -16,7 +16,11 @@
   </head>
   <body class ="some-class">
        <!-- Again, we're serving up the unminified source for clarity. -->
-    ${content}
+    ${content}<br>
+    ${interests}<br>
+    <form method="POST" action = "/logout">
+      <input type = "submit" value = "Log Out!!" id = "leave"></input>
+    </form>
   </body>
   <!-- See http://html5boilerplate.com/ for a good place to start
        dealing with real world issues like old browsers.  -->

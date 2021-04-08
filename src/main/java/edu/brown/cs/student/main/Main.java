@@ -67,6 +67,7 @@ public final class Main {
     Spark.get("/signup", new SignUpHomePageGUI(), freeMarker);
     Spark.get("/loggedin", new UserPage(), freeMarker);
     Spark.post("/login", new LoginGUI(), freeMarker);
+    Spark.post("/logout", new LogoutGUI(), freeMarker);
   }
 
   /**

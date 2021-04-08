@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
   private static Connection conn = null;
@@ -45,6 +47,30 @@ public class Database {
     } catch (Exception e) {
       e.printStackTrace();
       return output;
+    }
+
+  }
+
+  public List<String> getInterests(int id) {
+    int output = -1;
+    try {
+      // SQL search
+      PreparedStatement prep = conn
+          .prepareStatement("SELECT interest FROM interests WHERE user = ?");
+      prep.setInt(1, id);
+      // Gather data
+      ResultSet result = prep.executeQuery();
+      List<String> interests = new ArrayList<>();
+      while (result.next()) {
+        System.out.println(result.getString(1));
+        interests.add(result.getString(1));
+      }
+      result.close();
+      prep.close();
+      return interests;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new ArrayList<>();
     }
 
   }
