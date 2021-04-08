@@ -33,6 +33,8 @@ public class Database {
       PreparedStatement prep = conn
           .prepareStatement("SELECT id from login WHERE username = ? AND password = ?");
       prep.setString(1, username);
+      // String encrypted = Encryption.encrypt(password);
+      // prep.setString(2, encrypted);
       prep.setString(2, password);
       // Gather data
       ResultSet result = prep.executeQuery();
@@ -73,6 +75,64 @@ public class Database {
       return new ArrayList<>();
     }
 
+  }
+
+  public boolean usernameTaken(String username) {
+    try {
+      // SQL search
+      PreparedStatement prep = conn.prepareStatement("SELECT * FROM login WHERE username = ?");
+      prep.setString(1, username);
+      // Gather data
+      ResultSet result = prep.executeQuery();
+      return result.next();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return true;
+    }
+
+  }
+
+  public int addUser(String username, String password) {
+    try {
+      // SQL search
+      PreparedStatement prep = conn
+          .prepareStatement("INSERT INTO login(username, password) VALUES (?, ?)");
+      prep.setString(1, username);
+      prep.setString(2, password);
+      // prep.setSTring(2, Encryption.encrypt(password));
+      // Gather data
+      prep.executeUpdate();
+      prep.close();
+
+      PreparedStatement prep2 = conn.prepareStatement("SELECT id FROM login WHERE username = ?");
+      prep2.setString(1, username);
+      ResultSet result2 = prep2.executeQuery();
+      if (result2.next()) {
+        return result2.getInt(1);
+      }
+      return -1;
+    } catch (Exception e) {
+      e.printStackTrace();
+      return -1;
+    }
+
+  }
+
+  public void updatePassword(int id, String newpassword) {
+    try {
+      // SQL search
+      PreparedStatement prep = conn.prepareStatement("UPDATE login SET password = ? WHERE id = ?");
+      prep.setString(1, newpassword);
+      prep.setInt(2, id);
+
+      // prep.setSTring(2, Encryption.encrypt(password));
+      // Gather data
+      prep.executeUpdate();
+      prep.close();
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
 }

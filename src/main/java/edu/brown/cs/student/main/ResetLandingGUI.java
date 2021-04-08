@@ -8,13 +8,14 @@ import spark.Request;
 import spark.Response;
 import spark.TemplateViewRoute;
 
-public class SignUpHomePageGUI implements TemplateViewRoute {
+public class ResetLandingGUI implements TemplateViewRoute {
 
   @Override
   public ModelAndView handle(Request request, Response response) throws Exception {
     // TODO Auto-generated method stub
     Map<String, String> variables = new HashMap<>();
     variables.put("message", "");
-    return new ModelAndView(variables, "signup.ftl");
+    return new ModelAndView(variables, "reset.ftl");
   }
+
 }
